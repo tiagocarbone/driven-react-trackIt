@@ -34,7 +34,7 @@ export default function LoginPage({setToken, token}) {
             
     }
 
-    console.log(token)
+    console.log(user)
 
 
     return (

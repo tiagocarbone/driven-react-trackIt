@@ -23,12 +23,15 @@ export default function Habits({ token }) {
 
         axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
             .then((res) => {
+                console.log(res.data)
                 setHabits(res.data);
             })
             .catch((error) => {
                 console.error("Erro ao buscar hábitos:", error);
             });
     }, []); 
+
+    console.log(habits)
 
     return (
         <>
