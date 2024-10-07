@@ -76,7 +76,7 @@ export default function LoginPage({ setToken, token }) {
                     
             
 
-            <LinkButton>  "Não tem uma conta? Cadastre-se!" </LinkButton>
+            <LinkButton to={"/cadastro"} >  "Não tem uma conta? Cadastre-se!" </LinkButton>
         </Container>
 
     )
@@ -141,6 +141,7 @@ const Button = styled.div`
 
 const ErrorH2 = styled.h2`
     color: red;
+    font-family: "Lexend Deca", sans-serif;
     font-weight: 500;
     font-size: 18px;
     margin-top: 10px;
