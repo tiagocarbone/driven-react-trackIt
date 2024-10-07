@@ -36,7 +36,7 @@ export default function Habits({ token }) {
     return (
         <>
             <Header/>
-            {!habits ? <h1>carregando!</h1> : <h1>Carregou</h1>}
+            {!habits ? <h1>carregando</h1> : <h1>Carregou</h1>}
         </>
     );
 }
