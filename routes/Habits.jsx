@@ -31,11 +31,11 @@ export default function Habits({ token }) {
             });
     }, []); 
 
-    console.log(habits)
+
 
     return (
         <>
-            <Header/>
+            {token && <Header/>  }
             {!habits ? <h1>carregando</h1> : <h1>Carregou</h1>}
         </>
     );

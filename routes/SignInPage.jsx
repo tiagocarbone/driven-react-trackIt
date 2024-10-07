@@ -1,19 +1,25 @@
 import Svg from "../src/assets/Svg"
 import styled from "styled-components"
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
+import {ThreeDots} from "react-loader-spinner"
+
 
 export default function SignInPage() {
     const [email, setEmail] = useState("")
-    const [password, setPassowrd] = useState("")
+    const [password, setPassword] = useState("")
     const [name, setName] = useState("")
     const [photo, setPhoto] = useState("")
+    const [loading, setLoading] = useState(false)
 
+    const navigate = useNavigate()
 
 
     function submitForm(e){
         e.preventDefault()
+
+        setLoading(true)
 
         const body = {
             email: email,
@@ -23,10 +29,20 @@ export default function SignInPage() {
         }
 
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body)
-            .then((response) => console.log(response.data))
+            .then((response) => {
+                console.log(response.data)
+                setLoading(false)
+
+            })
+            .catch((response ) => {
+                console.log(response)
+                setLoading(false)
+            })
 
 
     }
+
+  
 
     return (
         <Container>
@@ -36,15 +52,27 @@ export default function SignInPage() {
             <FormContainer>
                 <form action="">
 
-                    <input type="text" id="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                    <input type="text" id="email" placeholder="Email" disabled={loading} onChange={(e) => setEmail(e.target.value)} />
 
-                    <input type="password" id="password" placeholder="Password" onChange={(e) => setPassowrd(e.target.value)} />
+                    <input type="name" id="name" placeholder="Nome" disabled={loading} onChange={(e) => setName(e.target.value)} />
 
-                    <input type="name" id="name" placeholder="Nome" onChange={(e) => setName(e.target.value)} />
+                    <input type="photo" id="photo" placeholder="Foto" disabled={loading} onChange={(e) => setPhoto(e.target.value)} />
 
-                    <input type="photo" id="photo" placeholder="Foto" onChange={(e) => setPhoto(e.target.value)} />
+                    <input type="password" id="password" placeholder="Password" disabled={loading} onChange={(e) => setPassword(e.target.value)} />
 
-                    <Button onClick={(e) => submitForm(e)} >Cadastrar</Button>
+                  
+                
+
+                    <Button onClick={(e) => submitForm(e)} > {loading ? <ThreeDots
+                                                        visible={true}
+                                                        height="80"
+                                                        width="80"
+                                                        color="#4fa94d"
+                                                        radius="9"
+                                                        ariaLabel="three-dots-loading"
+                                                        wrapperStyle={{}}
+                                                        wrapperClass=""
+                                                        /> : "Cadastrar"} </Button>
                 </form>
 
             </FormContainer>

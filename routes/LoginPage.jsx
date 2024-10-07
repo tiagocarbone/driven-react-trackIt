@@ -4,13 +4,16 @@ import Svg from "../src/assets/Svg"
 import { useContext, useState } from "react"
 import axios from "axios"
 import UserContext from "../contexts/UserContext"
+import {ThreeDots} from "react-loader-spinner"
 
-
-export default function LoginPage({setToken, token}) {
+export default function LoginPage({ setToken, token }) {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [user, setUser] = useContext(UserContext)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+
 
     const navigate = useNavigate()
 
@@ -19,19 +22,25 @@ export default function LoginPage({setToken, token}) {
         const body = {
             email,
             password
-        } 
+        }
 
-        
+        setLoading(true)
 
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
             .then((response) => {
-                
+
                 setToken(response.data.token)
                 setUser(response.data)
                 localStorage.setItem("token", response.data.token)
                 navigate("/habitos")
+                setLoading(false)
             })
-            
+            .catch((response) => {
+                console.error(response.message)
+                setLoading(false)
+                setError(true)
+            })
+
     }
 
     console.log(user)
@@ -39,22 +48,36 @@ export default function LoginPage({setToken, token}) {
 
     return (
         <Container>
-           <Svg/>
+            <Svg />
 
 
             <FormContainer>
                 <form action="">
 
-                    <input type="text" id="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                    <input type="text" id="email" placeholder="Email" disabled={loading} onChange={(e) => setEmail(e.target.value)} />
 
-                    <input type="password" id="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" id="password" placeholder="Password" disabled={loading} onChange={(e) => setPassword(e.target.value)} />
 
-                    <Button onClick={(e) => loginForm(e)} >Entrar</Button>
+                    {error && <ErrorH2>Usuário ou senha incorretos</ErrorH2>} 
+
+                    <Button onClick={(e) => loginForm(e)} > {loading ?  <ThreeDots
+                                                        visible={true}
+                                                        height="80"
+                                                        width="80"
+                                                        color="#4fa94d"
+                                                        radius="9"
+                                                        ariaLabel="three-dots-loading"
+                                                        wrapperStyle={{}}
+                                                        wrapperClass=""
+                                                        />  : "Entrar" }   
+                    </Button>
                 </form>
 
             </FormContainer>
+                    
+            
 
-            <LinkButton  to="/cadastro">Não tem uma conta? Cadastre-se!</LinkButton>
+            <LinkButton>  "Não tem uma conta? Cadastre-se!" </LinkButton>
         </Container>
 
     )
@@ -115,6 +138,13 @@ const Button = styled.div`
     font-size: 20.98px;
     color: white;
     margin-top: 20px;
+`
+
+const ErrorH2 = styled.h2`
+    color: red;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 10px;
 `
 
 const LinkButton = styled(Link)`
