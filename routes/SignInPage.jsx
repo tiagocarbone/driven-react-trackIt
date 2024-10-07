@@ -10,7 +10,7 @@ export default function SignInPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [name, setName] = useState("")
-    const [photo, setPhoto] = useState("")
+    const [image, setImage] = useState("")
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
@@ -22,11 +22,13 @@ export default function SignInPage() {
         setLoading(true)
 
         const body = {
-            email: email,
-            name : name,
-            image : photo,
-            password : password
+            email,
+            name,
+            image,
+            password
         }
+
+        console.log("body", body)
 
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body)
             .then((response) => {
@@ -56,23 +58,14 @@ export default function SignInPage() {
 
                     <input type="name" id="name" placeholder="Nome" disabled={loading} onChange={(e) => setName(e.target.value)} />
 
-                    <input type="photo" id="photo" placeholder="Foto" disabled={loading} onChange={(e) => setPhoto(e.target.value)} />
+                    <input type="text" id="image" placeholder="Foto" disabled={loading} onChange={(e) => setImage(e.target.value)} />
 
                     <input type="password" id="password" placeholder="Password" disabled={loading} onChange={(e) => setPassword(e.target.value)} />
 
                   
                 
 
-                    <Button onClick={(e) => submitForm(e)} > {loading ? <ThreeDots
-                                                        visible={true}
-                                                        height="80"
-                                                        width="80"
-                                                        color="#4fa94d"
-                                                        radius="9"
-                                                        ariaLabel="three-dots-loading"
-                                                        wrapperStyle={{}}
-                                                        wrapperClass=""
-                                                        /> : "Cadastrar"} </Button>
+                    <Button onClick={(e) => submitForm(e)} > Cadastrar</Button>
                 </form>
 
             </FormContainer>

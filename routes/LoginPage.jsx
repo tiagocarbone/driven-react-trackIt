@@ -43,7 +43,6 @@ export default function LoginPage({ setToken, token }) {
 
     }
 
-    console.log(user)
 
 
     return (
