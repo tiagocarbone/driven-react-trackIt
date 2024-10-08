@@ -75,7 +75,7 @@ export default function SignInPage() {
                 console.log(response.data)
                 setLoading(false)
                 setSuccess(true)
-                /* setTimeout(loginRedirect, 2500) */
+                setTimeout(loginRedirect, 2500) 
             })
             .catch((response ) => {
                 console.log(response)
