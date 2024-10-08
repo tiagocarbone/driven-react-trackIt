@@ -4,9 +4,10 @@ import { useContext } from "react"
 
 export default function Header(){
 
-    const [user] = useContext(UserContext)
+    //const [user] = useContext(UserContext)
 
-    console.log("user", user)
+    const user = JSON.parse(localStorage.getItem("user"));
+
 
     return(
 

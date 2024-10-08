@@ -29,9 +29,10 @@ export default function LoginPage({ setToken, token }) {
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
             .then((response) => {
 
-                setToken(response.data.token)
-                setUser(response.data)
+                //setToken(response.data.token)
+                //setUser(response.data)
                 localStorage.setItem("token", response.data.token)
+                localStorage.setItem("user", JSON.stringify(response.data))
                 navigate("/habitos")
                 setLoading(false)
             })
@@ -43,7 +44,7 @@ export default function LoginPage({ setToken, token }) {
 
     }
 
-
+    console.log("oi", user)
 
     return (
         <Container>
