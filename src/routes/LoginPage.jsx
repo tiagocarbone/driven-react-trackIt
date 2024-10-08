@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import Svg from "../src/assets/Svg"
+import Svg from "../assets/Svg"
 import { useContext, useState } from "react"
 import axios from "axios"
 import UserContext from "../contexts/UserContext"

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
 import Header from "../components/Header"
-
+import styled from "styled-components";
 
 export default function Habits({ token }) {
     const [habits, setHabits] = useState(null);
@@ -31,12 +31,22 @@ export default function Habits({ token }) {
             });
     }, []); 
 
-
+    
 
     return (
         <>
             {token && <Header/>  }
-            {!habits ? <h1>carregando</h1> : <h1>Carregou</h1>}
+            {!habits ? <H1>carregando</H1> : <H1>Meus hábitos</H1>}
         </>
     );
 }
+
+const H1 = styled.h1 `
+    font-family: "Lexend Deca";
+    font-size: 22.98px;
+    font-weight: 400;
+    line-height: 28.72px;
+    text-align: left;
+    color: #126BA5;
+
+`

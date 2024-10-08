@@ -1,4 +1,4 @@
-import Svg from "../src/assets/Svg"
+import Svg from "../assets/Svg"
 import styled from "styled-components"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"

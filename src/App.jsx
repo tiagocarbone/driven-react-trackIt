@@ -1,15 +1,15 @@
-import Habits from '../routes/Habits'
-import LoginPage from '../routes/LoginPage'
-import SignInPage from '../routes/SignInPage'
+import Habits from './routes/Habits'
+import LoginPage from './routes/LoginPage'
+import SignInPage from './routes/SignInPage'
 import { useState } from 'react'
 import './App.css'
 import {Routes, Route, BrowserRouter} from 'react-router-dom'
-import UserContext from '../contexts/UserContext'
+import UserContext from './contexts/UserContext'
 
 function App() {
 
   const [token, setToken] = useState(localStorage.getItem("token"))
-  const [user, setUser] = useState()
+  const [user, setUser] = useState([])
 
 
   return (
