@@ -3,6 +3,8 @@ import { useState } from "react"
 import TextField from '@mui/material/TextField';
 import WeekDay from "./WeekDay";
 import axios from "axios";
+import {ThreeDots} from "react-loader-spinner"
+
 
 export default function Modal(props){
 
@@ -43,6 +45,7 @@ export default function Modal(props){
     const [selectedDays, setSelectedDays] = useState([])
     selectedDays.sort((a, b) => a - b)
     
+    const [loading, setLoading] = useState(false)
 
     function cancelModal(){
         props.setShowModal(!props.showModal)
@@ -61,17 +64,20 @@ export default function Modal(props){
                 Authorization: `Bearer ${props.token}`
             }
         };
-
+        setLoading(true)
+        console.log(loading)
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config)
         .then((response) => {
-            console.log(response.data)
+            //console.log(response.data)
             props.setShowModal(!props.showModal)
+            setLoading(false)
+            console.log(loading)
         })
         .then(() => {
             axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
             .then((res) => {
                 props.setHabits(res.data);
-                console.log(res.data)
+                //console.log(res.data)
             })
             .catch((error) => {
                 console.error("Erro ao buscar hábitos:", error);
@@ -79,6 +85,8 @@ export default function Modal(props){
         })
         .catch((response) => {
             console.log(response)
+            setLoading(false)
+            console.log(loading)
         })
 
        
@@ -111,9 +119,18 @@ export default function Modal(props){
                         
                     </ContainerWeekDay>
                     <ButtonsModalContainer>
-                        <p onClick={()=>cancelModal() } >Cancelar</p>
-                        <SaveButton>
-                            <p onClick={(e) => saveHabit(e)} >Salvar</p>
+                        <p style={{ opacity: loading ? 0.5 : 1 }} onClick={loading ? null : ()=>cancelModal() } >Cancelar</p>
+                        <SaveButton style={{ opacity: loading ? 0.5 : 1 }} >
+                            <p onClick={(e) => saveHabit(e)} > {loading ? <ThreeDots
+                                                        visible={true}
+                                                        height="80"
+                                                        width="60"
+                                                        color="#fff"
+                                                        radius="9"
+                                                        ariaLabel="three-dots-loading"
+                                                        wrapperStyle={{}}
+                                                        wrapperClass=""
+                                                        /> : " Salvar" }</p>
                         </SaveButton>
                     </ButtonsModalContainer>
 

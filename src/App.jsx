@@ -1,6 +1,7 @@
 import Habits from './routes/Habits'
 import LoginPage from './routes/LoginPage'
 import SignInPage from './routes/SignInPage'
+import Today from './routes/Today'
 import { useState } from 'react'
 import './App.css'
 import {Routes, Route, BrowserRouter} from 'react-router-dom'
@@ -19,6 +20,7 @@ function App() {
         <Route path='/' element={<LoginPage setToken={setToken} token={token}/>} />
         <Route path='/cadastro' element={<SignInPage/>} />
         <Route path='/habitos' element={<Habits  token={token}/>} />
+        <Route path='/hoje' element={<Today  token={token} />} />
       </Routes>
     </BrowserRouter>
     </UserContext.Provider>

@@ -36,7 +36,7 @@ export default function Habit(props) {
 
 
 
-    console.log(props.days)
+    //console.log(props.days)
 
 
     return (
