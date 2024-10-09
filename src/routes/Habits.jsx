@@ -45,7 +45,7 @@ export default function Habits({ token }) {
             {token && <Header/>  }
 
             {!habits &&  <H1>carregando</H1>}
-            {habits && (
+            { habits && (
                     <ButtonContainer>
                         <H1>Meus hábitos</H1>
                         <div onClick={()=> setShowModal(!showModal)} >
@@ -57,19 +57,24 @@ export default function Habits({ token }) {
                     
                 )}
 
-                {showModal && <Modal setHabits={setHabits} token={token} showModal={showModal} setShowModal={setShowModal} />}
+            {showModal && <Modal setHabits={setHabits} token={token} showModal={showModal} setShowModal={setShowModal} />}
             {habits && habits.length == 0 && <Parag>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</Parag>}
             
-            <HabitsContainer>
-            {habits && habits.map((habit) => (
-                <Habit key={habit.id}  name={habit.name} days={habit.days} />
-            ))}
-            </HabitsContainer>
-
-            <Footer>
-                <FooterP1>  Hábitos</FooterP1>
-                <FooterP2>  Hoje</FooterP2>
-            </Footer>
+            {!showModal && (
+                 <HabitsContainer>
+                 {habits && habits.map((habit) => (
+                     <Habit key={habit.id}  name={habit.name} days={habit.days} />
+                 ))}
+                 </HabitsContainer>
+            )}  
+           
+            {!showModal && (
+                <Footer>
+                  <FooterP1>  Hábitos</FooterP1>
+                  <FooterP2>  Hoje</FooterP2>
+              </Footer>
+            )}
+          
         </Container>
     );
 }

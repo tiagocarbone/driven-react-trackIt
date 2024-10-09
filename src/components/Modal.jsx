@@ -131,6 +131,7 @@ const ModalContainer = styled.div `
     background-color: white;
     margin: auto;
     margin-top: 25px;
+    position: absolute;
     
     form{
         display: flex;
