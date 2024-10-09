@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { useState } from "react"
 import TextField from '@mui/material/TextField';
 import WeekDay from "./WeekDay";
-
+import axios from "axios";
 
 export default function Modal(props){
 
@@ -49,6 +49,39 @@ export default function Modal(props){
         
     }
 
+    function saveHabit(e){
+        e.preventDefault()
+        const body = {
+            name: habit,
+            days: selectedDays
+        }
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${props.token}`
+            }
+        };
+
+        axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config)
+        .then((response) => {
+            console.log(response.data)
+            props.setShowModal(!props.showModal)
+        })
+        .catch((response) => {
+            console.log(response)
+        })
+
+        axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+        .then((res) => {
+            props.setHabits(res.data);
+            console.log(res.data)
+        })
+        .catch((error) => {
+            console.error("Erro ao buscar hábitos:", error);
+        });
+       
+    }
+
 
     return (
         <ModalContainer>
@@ -77,7 +110,7 @@ export default function Modal(props){
                     <ButtonsModalContainer>
                         <p onClick={()=>cancelModal() } >Cancelar</p>
                         <SaveButton>
-                            <p>Salvar</p>
+                            <p onClick={(e) => saveHabit(e)} >Salvar</p>
                         </SaveButton>
                     </ButtonsModalContainer>
 

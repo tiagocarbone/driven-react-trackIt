@@ -13,12 +13,11 @@ export default function WeekDays (props){
         if(!clicked){
             setClicked(!clicked)
             props.setSelectedDays([...props.selectedDays, weekNumber])
-            props.selectedDays.sort
+
         }
         else {
             setClicked(!clicked)
             const newArray = props.selectedDays.filter((day) => day != weekNumber)
-            newArray.sort((a, b) => a - b)
             props.setSelectedDays(newArray)
             
         }

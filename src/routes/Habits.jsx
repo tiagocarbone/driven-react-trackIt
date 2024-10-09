@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header"
 import styled from "styled-components";
 import Modal from "../components/Modal";
+import Habit from "../components/Habit";
 
 
 export default function Habits({ token }) {
@@ -28,11 +29,14 @@ export default function Habits({ token }) {
         axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
             .then((res) => {
                 setHabits(res.data);
+                console.log(res.data)
             })
             .catch((error) => {
                 console.error("Erro ao buscar hábitos:", error);
             });
     }, []); 
+
+
 
 
 
@@ -42,19 +46,26 @@ export default function Habits({ token }) {
 
             {!habits &&  <H1>carregando</H1>}
             {habits && (
-                    <HabitsContainer>
+                    <ButtonContainer>
                         <H1>Meus hábitos</H1>
                         <div onClick={()=> setShowModal(!showModal)} >
                             +
                         </div>
                         
                         
-                    </HabitsContainer>
+                    </ButtonContainer>
                     
                 )}
 
-                {showModal && <Modal showModal={showModal} setShowModal={setShowModal} />}
+                {showModal && <Modal setHabits={setHabits} token={token} showModal={showModal} setShowModal={setShowModal} />}
             {habits && habits.length == 0 && <Parag>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</Parag>}
+            
+            <HabitsContainer>
+            {habits && habits.map((habit) => (
+                <Habit key={habit.id}  name={habit.name} days={habit.days} />
+            ))}
+            </HabitsContainer>
+
             <Footer>
                 <FooterP1>  Hábitos</FooterP1>
                 <FooterP2>  Hoje</FooterP2>
@@ -68,6 +79,8 @@ const Container = styled.div `
     background-color: #dee7ee4b;
     height: 667px;
     position: relative;
+   
+
 `
 
 const H1 = styled.h1 `
@@ -82,7 +95,7 @@ const H1 = styled.h1 `
     width: 375px;
 `
 
-const HabitsContainer = styled.div `
+const ButtonContainer = styled.div `
     display: flex;
     width: 375px;
     
@@ -113,6 +126,14 @@ const Parag = styled.p`
     width: 85%;
 `
 
+const HabitsContainer = styled.div `
+
+
+    height: 472px;
+    overflow-y: scroll;
+    padding-bottom: 15px;
+    overflow-x: hidden;
+`
 
 const Footer = styled.div `
 
@@ -120,16 +141,19 @@ const Footer = styled.div `
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+
     bottom: 0%;
 
+
 `
+
+
 const FooterP1 = styled.p `
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 180px;
+    width: 187.5px;
     height: 65px;
     background-color:  #52B6FF;
     color: white;
@@ -145,7 +169,7 @@ const FooterP2 = styled.p `
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 180px;
+    width: 187.5px;
     height: 65px;
     background-color: white;
     color:  #D4D4D4;
