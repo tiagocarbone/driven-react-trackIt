@@ -67,18 +67,21 @@ export default function Modal(props){
             console.log(response.data)
             props.setShowModal(!props.showModal)
         })
+        .then(() => {
+            axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+            .then((res) => {
+                props.setHabits(res.data);
+                console.log(res.data)
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar hábitos:", error);
+            });
+        })
         .catch((response) => {
             console.log(response)
         })
 
-        axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
-        .then((res) => {
-            props.setHabits(res.data);
-            console.log(res.data)
-        })
-        .catch((error) => {
-            console.error("Erro ao buscar hábitos:", error);
-        });
+       
        
     }
 
