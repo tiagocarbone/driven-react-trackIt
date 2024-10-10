@@ -7,11 +7,13 @@ import 'dayjs/locale/pt-br'
 import axios from "axios";
 import TodayHabit from "../components/TodayHabit";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Today({ token }) {
 
     const [loading, setLoading] = useState(false)
     const [habits, setHabits] = useState(null)
+    const navigate = useNavigate();
 
     dayjs.locale('pt-br')
     //console.log(dayjs('2019-01-25').format('dddd/MM/YYYY'))
@@ -19,6 +21,7 @@ export default function Today({ token }) {
 
     useEffect(() => {
         if (!token) {
+
             navigate("/");
             return;
         }
@@ -37,6 +40,9 @@ export default function Today({ token }) {
                 setHabits(response.data)
                 setLoading(false)
             })
+            .catch((response) => {
+                console.log(response)
+            })
 
 
 
@@ -46,7 +52,7 @@ export default function Today({ token }) {
 
     return (
         <Container>
-            <Header />
+            {token && <Header />}
             {loading ? <StyledH1>Carregando... </StyledH1> : <StyledH1>{dayjs().format('dddd, DD/MM')}</StyledH1>}
 
             <HabitsContainer>

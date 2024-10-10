@@ -1,31 +1,33 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import Header from "../components/Header"
-import styled from "styled-components";
-import Modal from "../components/Modal";
-import Habit from "../components/Habit";
-import { Link } from "react-router-dom";
+import styled from "styled-components"
+import Modal from "../components/Modal"
+import Habit from "../components/Habit"
+import { Link } from "react-router-dom"
 
 
 export default function Habits({ token }) {
-    const [habits, setHabits] = useState(null);
-    const navigate = useNavigate();
+    const [habits, setHabits] = useState(null)
+    const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false)
+    const[habit, setHabit] = useState("")
 
 
 
     useEffect(() => {
         if (!token) {
-            navigate("/");
-            return;
+
+            navigate("/")
+            return
         }
 
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        };
+        }
 
         axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
             .then((res) => {
@@ -58,7 +60,7 @@ export default function Habits({ token }) {
 
             )}
 
-            {showModal && <Modal setHabits={setHabits} token={token} showModal={showModal} setShowModal={setShowModal} />}
+            {showModal && <Modal habit={habit} setHabit={setHabit} setHabits={setHabits} token={token} showModal={showModal} setShowModal={setShowModal} />}
             {habits && habits.length == 0 && <Parag>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</Parag>}
 
             {!showModal && (

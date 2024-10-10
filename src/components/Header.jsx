@@ -8,6 +8,9 @@ export default function Header(){
 
     const user = JSON.parse(localStorage.getItem("user"));
 
+    function logout(){
+        alert("oi")
+    }
 
     return(
 
@@ -18,7 +21,7 @@ export default function Header(){
                 </svg>
 
                 <Image src={user.image} alt="" />
-
+                <h1 onClick={() => logout()} >Logout</h1>
 
         </Container>
         
@@ -36,6 +39,15 @@ const Container = styled.div `
     padding-left: 10px;
     padding-right: 10px;
     align-items: center;
+    h1{
+        margin-right: 5px;
+        font-family: Lexend Deca;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 48.73px;
+        text-align: left;
+        color: white;
+    }
 
 `
 
@@ -43,15 +55,5 @@ const Image = styled.img `
     width: 51px;
     height: 51px;
     border-radius: 98.5px 
-
-`
-
-const H1 = styled.h1 `
-    font-family: "Playball", cursive;
-    font-size: 38.98px;
-    font-weight: 400;
-    line-height: 48.73px;
-    text-align: left;
-    color: white;
 
 `

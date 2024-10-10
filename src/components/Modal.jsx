@@ -10,7 +10,7 @@ export default function Modal(props){
 
     const [daysArray, setDaysArray] = useState([])
     const [click, setClick] = useState(false)
-    const[habit, setHabit] = useState("")
+   
     const [days, setDays] = useState([
         {
            weekDay : "D",
@@ -55,7 +55,7 @@ export default function Modal(props){
     function saveHabit(e){
         e.preventDefault()
         const body = {
-            name: habit,
+            name: props.habit,
             days: selectedDays
         }
 
@@ -106,7 +106,7 @@ export default function Modal(props){
                             type="text"
                             defaultValue=""
                             style={{ width: '85%' }}
-                            onChange={(e) => setHabit(e.target.value)}
+                            onChange={(e) => props.setHabit(e.target.value)}
                             //helperText="Incorrect entry."
                     />
             </form>

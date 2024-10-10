@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import Svg from "../assets/Svg"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import axios from "axios"
 import UserContext from "../contexts/UserContext"
 import {ThreeDots} from "react-loader-spinner"
@@ -17,6 +17,14 @@ export default function LoginPage({ setToken, token }) {
 
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if (token) {
+            navigate("/habitos");
+            return;
+        }
+    }, [])
+
+
     function loginForm(e) {
         e.preventDefault()
         const body = {
@@ -29,12 +37,14 @@ export default function LoginPage({ setToken, token }) {
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
             .then((response) => {
 
-                //setToken(response.data.token)
-                //setUser(response.data)
+                setToken(response.data.token)
+                setUser(response.data)
                 localStorage.setItem("token", response.data.token)
                 localStorage.setItem("user", JSON.stringify(response.data))
-                navigate("/habitos")
                 setLoading(false)
+
+                navigate("/habitos")
+
             })
             .catch((response) => {
                 console.error(response.message)
