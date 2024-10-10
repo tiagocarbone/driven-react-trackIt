@@ -4,28 +4,59 @@ import { useEffect } from "react";
 
 export default function TodayHabit(props) {
 
-    
-        function handleClick(){
 
-                const config = {
-                    headers: {
-                        Authorization: `Bearer ${props.token}`
-                    }}
-        
-                axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${65703}/check`, config )
-                .then((response) => {
-                  console.log(response)       
-                   })
+    function handleClick() {
+
+        if (!props.done) {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${props.token}`
+                }
             }
-        
-    
-            
-    
 
-   
+            axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.habitId}/check`, {}, config)
+                .then((response) => {
+                    console.log(response)
+                    axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
+                        .then((response) => {
+                            //console.log(response.data)
+                            props.setHabits(response.data)
+
+                        })
+                })
+                .catch((response) => {
+                    console.log(response)
+                })
+        }
+        else if (props.done){
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${props.token}`
+                }
+            }
+
+            axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.habitId}/uncheck`,  {}, config)
+                .then((response) => {
+                    console.log(response)
+                    axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
+                        .then((response) => {
+                            //console.log(response.data)
+                            props.setHabits(response.data)
+
+                        })
+
+                })
+                .catch((response) => {
+                    console.log(response)
+                })
+
+        }
+
+    }
 
 
-    console.log(props.token)
+    //console.log(props.token)
 
     return (
 

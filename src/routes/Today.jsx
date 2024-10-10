@@ -42,7 +42,7 @@ export default function Today({ token }) {
 
     }, []);
 
-    console.log("habits", habits)
+    //console.log("habits", habits)
 
     return (
         <Container>
@@ -58,6 +58,7 @@ export default function Today({ token }) {
                     done={habit.done}
                     habitId={habit.id}
                     token={token}
+                    setHabits={setHabits}
                     />
                     
                 ))}
