@@ -104,7 +104,7 @@ export default function Modal(props){
                             //label="nome do hábito"
                             placeholder="nome do hábito" 
                             type="text"
-                            defaultValue=""
+                            defaultValue={props.habit ? props.habit : ""}
                             style={{ width: '85%' }}
                             onChange={(e) => props.setHabit(e.target.value)}
                             //helperText="Incorrect entry."
