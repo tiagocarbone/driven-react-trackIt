@@ -11,7 +11,7 @@ export default function Modal(props){
     //const [selectedDays, setSelectedDays] = useState([])
     //selectedDays.sort((a, b) => a - b)
     const [loading, setLoading] = useState(false)
-    //const [click, setClick] = useState(false)
+    const [dayClicked, setDayClicked] = useState(false)
     const [days, setDays] = useState([
         {
            weekDay : "D",
@@ -111,9 +111,15 @@ export default function Modal(props){
 
 
                     <ContainerWeekDay>
-                        {days.map((day) => (
-                            <WeekDay key={day.weekNumber} weekNumber={day.weekNumber} weekDay={day.weekDay} selectedDays={props.selectedDays} setSelectedDays={props.setSelectedDays} />
-                        ))}
+                        {days.map((day) => {
+                            const dayClicked = props.selectedDays.includes(day.weekNumber)  //verificação para ver se ja ta no array e estilizo
+                            console.log(dayClicked)
+                        
+                        return (
+
+
+                            <WeekDay dayClicked={dayClicked} key={day.weekNumber} weekNumber={day.weekNumber} weekDay={day.weekDay} selectedDays={props.selectedDays} setSelectedDays={props.setSelectedDays} />
+                        )})}
                         
                     </ContainerWeekDay>
                     <ButtonsModalContainer>

@@ -6,8 +6,9 @@ import { useState } from "react"
 
 export default function WeekDays (props){
 
-    const [clicked, setClicked] = useState(false)
+    const [clicked, setClicked] = useState(props.dayClicked)
    
+    console.log(props.selectedDays)
 
     function handleClick(weekNumber){
 
@@ -27,8 +28,8 @@ export default function WeekDays (props){
     
 
     return <>
-            <WeekDayDiv clicked={clicked} >
-              <WeekDay  clicked={clicked} onClick={() => handleClick(props.weekNumber) } > {props.weekDay}</WeekDay>
+            <WeekDayDiv clicked={props.dayClicked  } >
+              <WeekDay  clicked={props.dayClicked  } onClick={() => handleClick(props.weekNumber) } > {props.weekDay}</WeekDay>
             </WeekDayDiv>
         </>
 }
