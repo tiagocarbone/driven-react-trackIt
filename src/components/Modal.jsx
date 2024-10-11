@@ -8,9 +8,10 @@ import {ThreeDots} from "react-loader-spinner"
 
 export default function Modal(props){
 
-    const [daysArray, setDaysArray] = useState([])
-    const [click, setClick] = useState(false)
-   
+    //const [selectedDays, setSelectedDays] = useState([])
+    //selectedDays.sort((a, b) => a - b)
+    const [loading, setLoading] = useState(false)
+    //const [click, setClick] = useState(false)
     const [days, setDays] = useState([
         {
            weekDay : "D",
@@ -42,10 +43,7 @@ export default function Modal(props){
         },
     ])
 
-    const [selectedDays, setSelectedDays] = useState([])
-    selectedDays.sort((a, b) => a - b)
-    
-    const [loading, setLoading] = useState(false)
+
 
     function cancelModal(){
         props.setShowModal(!props.showModal)
@@ -56,7 +54,7 @@ export default function Modal(props){
         e.preventDefault()
         const body = {
             name: props.habit,
-            days: selectedDays
+            days: props.selectedDays
         }
 
         const config = {
@@ -65,13 +63,13 @@ export default function Modal(props){
             }
         };
         setLoading(true)
-        console.log(loading)
+        //console.log(loading)
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config)
         .then((response) => {
             //console.log(response.data)
             props.setShowModal(!props.showModal)
             setLoading(false)
-            console.log(loading)
+            //console.log(loading)
         })
         .then(() => {
             axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
@@ -86,7 +84,7 @@ export default function Modal(props){
         .catch((response) => {
             console.log(response)
             setLoading(false)
-            console.log(loading)
+            //console.log(loading)
         })
 
        
@@ -114,7 +112,7 @@ export default function Modal(props){
 
                     <ContainerWeekDay>
                         {days.map((day) => (
-                            <WeekDay key={day.weekNumber} weekNumber={day.weekNumber} weekDay={day.weekDay} selectedDays={selectedDays} setSelectedDays={setSelectedDays} />
+                            <WeekDay key={day.weekNumber} weekNumber={day.weekNumber} weekDay={day.weekDay} selectedDays={props.selectedDays} setSelectedDays={props.setSelectedDays} />
                         ))}
                         
                     </ContainerWeekDay>

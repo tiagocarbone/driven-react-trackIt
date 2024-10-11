@@ -13,9 +13,12 @@ export default function Habits({ token, setToken }) {
     const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false)
     const[habit, setHabit] = useState("")
+    
+    const [selectedDays, setSelectedDays] = useState([])
+    selectedDays.sort((a, b) => a - b)
 
-
-
+    console.log(selectedDays)
+    
     useEffect(() => {
         if (!token) {
 
@@ -60,7 +63,7 @@ export default function Habits({ token, setToken }) {
 
             )}
 
-            {showModal && <Modal habit={habit} setHabit={setHabit} setHabits={setHabits} token={token} showModal={showModal} setShowModal={setShowModal} />}
+            {showModal && <Modal selectedDays={selectedDays} setSelectedDays={setSelectedDays}  habit={habit} setHabit={setHabit} setHabits={setHabits} token={token} showModal={showModal} setShowModal={setShowModal} />}
             {habits && habits.length == 0 && <Parag>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</Parag>}
 
             {!showModal && (

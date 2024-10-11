@@ -9,7 +9,7 @@ import TodayHabit from "../components/TodayHabit";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export default function Today({ token }) {
+export default function Today({ token, setToken }) {
 
     const [loading, setLoading] = useState(false)
     const [habits, setHabits] = useState(null)
@@ -25,6 +25,10 @@ export default function Today({ token }) {
             navigate("/");
             return;
         }
+    })
+
+    useEffect(() => {
+       
 
         const config = {
             headers: {
@@ -52,7 +56,7 @@ export default function Today({ token }) {
 
     return (
         <Container>
-            {token && <Header />}
+            {token && <Header setToken={setToken}  />}
             {loading ? <StyledH1>Carregando... </StyledH1> : <StyledH1>{dayjs().format('dddd, DD/MM')}</StyledH1>}
 
             <HabitsContainer>

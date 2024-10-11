@@ -54,7 +54,7 @@ export default function LoginPage({ setToken, token }) {
 
     }
 
-    console.log("oi", user)
+    //console.log("oi", user)
 
     return (
         <Container>
