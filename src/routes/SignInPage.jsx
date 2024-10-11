@@ -16,6 +16,7 @@ export default function SignInPage() {
     const [errorPassword, setErrorPassword] = useState(false)
     const [errorEmail, setErrorEmail] = useState(false)
     const [success, setSuccess] = useState(false)
+    const [error, setError] = useState(false)
 
     const navigate = useNavigate()
 
@@ -80,6 +81,10 @@ export default function SignInPage() {
             .catch((response ) => {
                 console.log(response)
                 setLoading(false)
+                console.log(response.status)
+                if(response.status === 409){
+                    setError(true)
+                }
             })
 
 
@@ -154,9 +159,9 @@ export default function SignInPage() {
                     
 
                     {success && <SuccessH2>Sucesso! Você redirecionado para a página de login em 2s</SuccessH2>}
-                
+                    {error && <ErrorP>Usuario já cadastrado!</ErrorP>}
 
-                    <Button  style={{ opacity: loading ? 0.5 : 1 }}   onClick={ loading? "" :  (e) => submitForm(e)} > Cadastrar</Button>
+                    <Button  style={{ opacity: loading ? 0.5 : 1 }}   onClick={ (e) => !loading && submitForm(e)} > Cadastrar</Button>
                 </form>
 
             </FormContainer>
@@ -185,6 +190,19 @@ const Container = styled.div`
         font-weight: 400;
         font-style: normal;
     }
+`
+
+const ErrorP  = styled.p `
+        
+        color: red;
+
+        font-weight: 500;
+        font-size: 18px;
+        margin-top: 10px;
+        font-family: "Playball", cursive;
+        width: 80%;
+        line-height: normal;
+        text-align: center;
 `
 
 const FormContainer = styled.div`
