@@ -17,7 +17,7 @@ export default function Habits({ token, setToken }) {
     const [selectedDays, setSelectedDays] = useState([])
     selectedDays.sort((a, b) => a - b)
 
-
+    console.log(selectedDays)
     
     useEffect(() => {
         if (!token) {
