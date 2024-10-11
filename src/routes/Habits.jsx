@@ -8,7 +8,7 @@ import Habit from "../components/Habit"
 import { Link } from "react-router-dom"
 
 
-export default function Habits({ token }) {
+export default function Habits({ token, setToken }) {
     const [habits, setHabits] = useState(null)
     const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false)
@@ -45,7 +45,7 @@ export default function Habits({ token }) {
 
     return (
         <Container>
-            {token && <Header />}
+            {token && <Header setToken={setToken} />}
 
             {!habits && <H1>Carregando...</H1>}
             {habits && (

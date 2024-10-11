@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginPage setToken={setToken} token={token}/>} />
         <Route path='/cadastro' element={<SignInPage/>} />
-        <Route path='/habitos' element={<Habits  token={token}/>} />
+        <Route path='/habitos' element={<Habits setToken={setToken}  token={token}/>} />
         <Route path='/hoje' element={<Today  token={token} />} />
       </Routes>
     </BrowserRouter>
