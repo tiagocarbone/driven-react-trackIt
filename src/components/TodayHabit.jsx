@@ -81,7 +81,7 @@ export default function TodayHabit(props) {
                                                         visible={true}
                                                         height="80"
                                                         width="45"
-                                                        color="#FFF"
+                                                        color="#52B6FF"
                                                         radius="9"
                                                         ariaLabel="three-dots-loading"
                                                         wrapperStyle={{}}

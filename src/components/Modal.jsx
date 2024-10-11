@@ -51,6 +51,12 @@ export default function Modal(props){
     }
 
     function saveHabit(e){
+
+        if(  props.selectedDays.length == 0 || !props.habit ){
+            alert("Preencha os campos habito e o de dia")
+            return
+        }
+
         e.preventDefault()
         const body = {
             name: props.habit,

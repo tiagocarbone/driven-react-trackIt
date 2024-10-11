@@ -1,10 +1,11 @@
 import { useState } from "react"
 import styled from "styled-components";
+import axios from "axios";
+import {ThreeDots} from "react-loader-spinner"
+
+
 
 export default function Habit(props) {
-
-  
-
     const [daysDefault, setDaysDefault] = useState([
         {
             weekDay: "D",
@@ -36,10 +37,38 @@ export default function Habit(props) {
         },
     ])
 
+    const [loading, setLoading] = useState(false)
 
 
     //console.log(props.days)
 
+    function cancelHabit(){
+        //alert("oi")
+        setLoading(true)
+        const config = {
+            headers: {
+                Authorization: `Bearer ${props.token}` 
+            }}
+
+            axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.habitId}`, config)
+            .then((response) => {
+                console.log(response)
+
+                axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+                .then((res) => {
+                    props.setHabits(res.data); 
+                    setLoading(false); 
+                })
+                .catch((error) => {
+                    console.error("Erro ao buscar hábitos:", error);
+                    setLoading(false);
+                });
+
+            })
+            .catch((response) => {
+                console.log(response)
+            })
+}
 
     return (
 
@@ -55,11 +84,23 @@ export default function Habit(props) {
                     return (
                         <WeekDayDiv habitDay={habitDay} key={d.weekNumber}>
                             <WeekDay habitDay={habitDay}>{d.weekDay}</WeekDay>
+                            
                         </WeekDayDiv>
                     );
-                })}
-                </ContainerWeekDays>
 
+                })}
+                <StyledP onClick={() => cancelHabit()} >{loading ? <ThreeDots
+                                                        visible={true}
+                                                        height="30"
+                                                        width="40"
+                                                        color="#52B6FF"
+                                                        radius="9"
+                                                        ariaLabel="three-dots-loading"
+                                                        wrapperStyle={{}}
+                                                        wrapperClass=""
+                                                        /> : "x" }</StyledP>
+                </ContainerWeekDays>
+                
             </Container>
 
     )
@@ -93,12 +134,19 @@ const Container = styled.div`
 
 `
 
-
+const StyledP = styled.p `
+    margin-left: 50px;
+    
+    font-family: "Lexend Deca";
+    color: #52B6FF;
+    font-size: 30px;
+`
 
 const ContainerWeekDays = styled.div`
 
    display: flex;
    flex-direction: row;
+   
 
 `
 

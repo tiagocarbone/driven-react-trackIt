@@ -63,13 +63,13 @@ export default function Habits({ token, setToken }) {
 
             )}
 
-            {showModal && <Modal selectedDays={selectedDays} setSelectedDays={setSelectedDays}  habit={habit} setHabit={setHabit} setHabits={setHabits} token={token} showModal={showModal} setShowModal={setShowModal} />}
+            {showModal && <Modal  selectedDays={selectedDays} setSelectedDays={setSelectedDays}  habit={habit} setHabit={setHabit} setHabits={setHabits} token={token} showModal={showModal} setShowModal={setShowModal} />}
             {habits && habits.length == 0 && <Parag>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</Parag>}
 
             {!showModal && (
                 <HabitsContainer>
                     {habits && habits.map((habit) => (
-                        <Habit key={habit.id} name={habit.name} days={habit.days} />
+                        <Habit  token={token} key={habit.id} name={habit.name} days={habit.days} habitId={habit.id} setHabits={setHabits} />
                     ))}
                 </HabitsContainer>
             )}
